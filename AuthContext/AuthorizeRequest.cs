@@ -66,7 +66,7 @@ namespace M_Connect.Controllers
                 return;
             }
 
-            //if (!authKey.Equals(extractedauth.ToString().DecryptString()))
+            //if (!authKey.Equals(extractedauth/*.ToString().DecryptString()*/))
             //{
             //    context.Result = new ContentResult()
             //    {
@@ -75,6 +75,9 @@ namespace M_Connect.Controllers
             //    };
             //    return;
             //}
+
+            context.HttpContext.Response.Headers.Add(sid, sidKey);
+            context.HttpContext.Response.Headers.Add(auth, authKey.EncryptString());
 
             await next();
         }
