@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
 using M_Connect.Encryption;
+using Microsoft.Net.Http.Headers;
 
 namespace M_Connect.Controllers
 {
@@ -79,8 +80,14 @@ namespace M_Connect.Controllers
             context.HttpContext.Response.Headers.Add(sid, sidKey);
             context.HttpContext.Response.Headers.Add(auth, authKey.EncryptString());
 
+
+            context.HttpContext.Response.Headers[HeaderNames.CacheControl] = "no-cache, private";
+            context.HttpContext.Response.Headers[HeaderNames.KeepAlive] = "timeout=5, max=100";
+            context.HttpContext.Response.Headers[HeaderNames.Connection] = "Keep-Alive";
+
             await next();
         }
     }
 
 }
+
