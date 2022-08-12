@@ -77,8 +77,8 @@ namespace M_Connect.Controllers
             //    return;
             //}
 
-            context.HttpContext.Response.Headers.Add(sid, sidKey);
-            context.HttpContext.Response.Headers.Add(auth, authKey.EncryptString());
+            context.HttpContext.Response.Headers.Add(sid, extractedsid.ToString());
+            context.HttpContext.Response.Headers.Add(auth, extractedauth.ToString().EncryptString());
 
 
             context.HttpContext.Response.Headers[HeaderNames.CacheControl] = "no-cache, private";
