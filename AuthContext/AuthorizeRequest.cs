@@ -52,20 +52,20 @@ namespace M_Connect.Controllers
             }
 
 
-            var appSettings = context.HttpContext.RequestServices.GetRequiredService<IConfiguration>();
+            //var appSettings = context.HttpContext.RequestServices.GetRequiredService<IConfiguration>();
 
-            var sidKey = appSettings.GetSection("ApiKeyConfig").GetValue<string>("sid");
-            var authKey = appSettings.GetSection("ApiKeyConfig").GetValue<string>("auth");
+            //var sidKey = appSettings.GetSection("ApiKeyConfig").GetValue<string>("sid");
+            //var authKey = appSettings.GetSection("ApiKeyConfig").GetValue<string>("auth");
 
-            if (!sidKey.Equals(extractedsid))
-            {
-                context.Result = new ContentResult()
-                {
-                    StatusCode = 401,
-                    Content = "Unauthorized Access: SID is not valid"
-                };
-                return;
-            }
+            //if (!sidKey.Equals(extractedsid))
+            //{
+            //    context.Result = new ContentResult()
+            //    {
+            //        StatusCode = 401,
+            //        Content = "Unauthorized Access: SID is not valid"
+            //    };
+            //    return;
+            //}
 
             //if (!authKey.Equals(extractedauth/*.ToString().DecryptString()*/))
             //{
