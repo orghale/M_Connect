@@ -52,32 +52,37 @@ namespace M_Connect.Controllers
             }
 
 
-            //var appSettings = context.HttpContext.RequestServices.GetRequiredService<IConfiguration>();
+            var appSettings = context.HttpContext.RequestServices.GetRequiredService<IConfiguration>();
 
-            //var sidKey = appSettings.GetSection("ApiKeyConfig").GetValue<string>("sid");
-            //var authKey = appSettings.GetSection("ApiKeyConfig").GetValue<string>("auth");
+            var sidKey = appSettings.GetSection("ApiKeyConfig").GetValue<string>("sid");
+            var authKey = appSettings.GetSection("ApiKeyConfig").GetValue<string>("auth");
 
-            //if (!sidKey.Equals(extractedsid))
-            //{
-            //    context.Result = new ContentResult()
-            //    {
-            //        StatusCode = 401,
-            //        Content = "Unauthorized Access: SID is not valid"
-            //    };
-            //    return;
-            //}
+            //validate request sid value against system sid key 
+            if (!sidKey.Equals(extractedsid))
+            {
+                context.Result = new ContentResult()
+                {
+                    StatusCode = 401,
+                    Content = "Unauthorized Access: SID is not valid"
+                };
+                return;
+            }
 
-            //if (!authKey.Equals(extractedauth/*.ToString().DecryptString()*/))
-            //{
-            //    context.Result = new ContentResult()
-            //    {
-            //        StatusCode = 401,
-            //        Content = "Unauthorized Access: AUTH is not valid"
-            //    };
-            //    return;
-            //}
+            //validate request auth value against system auth key 
+            if (!authKey.Equals(extractedauth/*.ToString().DecryptString()*/))
+            {
+                context.Result = new ContentResult()
+                {
+                    StatusCode = 401,
+                    Content = "Unauthorized Access: AUTH is not valid"
+                };
+                return;
+            }
 
+            //add request sid value to response header 
             context.HttpContext.Response.Headers.Add(sid, extractedsid.ToString());
+
+            //encrypt request auth value using RSA_PKCS1 padding and add to response header 
             context.HttpContext.Response.Headers.Add(auth, extractedauth.ToString().EncryptString());
 
 
