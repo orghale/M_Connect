@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace M_Connect.Controllers
 {
-    [Authorize]
     [ApiController]
     // [Route("ussd")]
     public class USSDController : ControllerBase
@@ -111,7 +110,7 @@ namespace M_Connect.Controllers
         }
 
 
-
+        [Authorize]
         [HttpGet("account")]
         [ProducesResponseType(typeof(Response_Object), 200)]
         public async Task<IActionResult> MyAccount()
